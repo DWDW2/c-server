@@ -9,6 +9,14 @@
 #define PORT 8080
 
 int main() {
+  /*
+   * server_fd - is a file descriptor for server socket, new_socket holds
+   * file descriptor for new connections accepted by server
+   * sockaddr_in address holds current information about the socket (IP, port
+   * etc.) buffer is used to recieve / send data AF_INET is the adress family
+   * for Ipv4.
+   */
+
   int server_fd, new_socket;
   struct sockaddr_in address;
   int addrlen = sizeof(address);
@@ -19,13 +27,18 @@ int main() {
   address.sin_family = AF_INET;
   address.sin_addr.s_addr = INADDR_ANY;
   address.sin_port = htons(PORT);
+
   // here we bind server file descriptor to a specific adress in ALL local IPs.
   bind(server_fd, (struct sockaddr *)&address, sizeof(address));
+
   // listening in server_fd
+  //
   listen(server_fd, 3);
+
   //  accepting new connections
   //  you can see that we create new socket
   //  in this new socket we can read / write stuff
+  //
   while (1) {
     new_socket =
         accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen);

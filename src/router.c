@@ -9,6 +9,8 @@ void route_request(const char *method, const char *path, int socket) {
     handle_about_dir(socket);
   } else if (strcmp(path, "/post") == 0 && strcmp(method, "POST") == 0) {
     handle_post_req(socket);
+  } else if (strcmp(path, "/get-random-image")) {
+
   } else {
     handle_404(socket);
   }
