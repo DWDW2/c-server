@@ -1,4 +1,5 @@
 #include "handlers.h"
+#include "db.h"
 #include <string.h>
 #include <unistd.h>
 
@@ -21,6 +22,7 @@ void handle_about_dir(int socket) {
 }
 
 void handle_post_req(int socket) {
+  connect();
   char *response = "HTTP/1.1 200 OK\r\n"
                    "Content-Type: text/html\r\n"
                    "Content-Length: 27\r\n"
