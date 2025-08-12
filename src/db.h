@@ -1,6 +1,6 @@
 #ifndef DB_H
 #define DB_H
 
-void connect();
+char *connect_and_fetch();
 
 #endif

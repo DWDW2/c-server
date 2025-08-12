@@ -1,26 +1,38 @@
 #include "db.h"
 #include <stdlib.h>
 #include <libpq-fe.h>
+#include <string.h>
 
 static void exit_nicely(PGconn *con) {
   PQfinish(con);
   exit(1);
 }
 
-void connect() {
-  PGresult *res;
-  PGconn *con = PQconnectdb("host=localhost port=5432");
-  
-  if (PQstatus(con) != CONNECTION_OK)
-  {
-      fprintf(stderr, "%s", PQerrorMessage(con));
-      exit_nicely(con);
-  }
+char *connect_and_fetch(void) {
+    PGconn   *con;
+    PGresult *res;
+    char     *value;
 
-  res = PQexec(con, 
-  "CREATE TABLE IF NOT EXISTS: (id primary_key,name varchar(256))");
+    const char *conninfo = "some_connection_string";
 
-  if(PQresultStatus(res) != PGRES_TUPLES_OK){
-    exit(1);
-  }
+    con = PQconnectdb(conninfo);
+    if (PQstatus(con) != CONNECTION_OK) {
+        fprintf(stderr, "Connection failed: %s\n", PQerrorMessage(con));
+        PQfinish(con);
+        return NULL;
+    }
+
+    res = PQexec(con, "SELECT * FROM \"user\"");  
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        fprintf(stderr, "Query failed: %s\n", PQerrorMessage(con));
+        PQclear(res);
+        PQfinish(con);
+        return NULL;
+    }
+
+    value = strdup(PQfname(res, 1));
+
+    PQclear(res);
+    PQfinish(con);
+    return value;
 }
