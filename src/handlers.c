@@ -1,5 +1,5 @@
-#include "handlers.h"
-#include "db.h"
+#include "headers/handlers.h"
+#include "headers/db.h"
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
