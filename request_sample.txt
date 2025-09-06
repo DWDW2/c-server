@@ -1,0 +1,19 @@
+Host: localhost:8080
+Connection: keep-alive
+sec-ch-ua: "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari
+/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signe
+d-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: ph_phc_r94fFj6QpByRGXV7JbHyHc7cMLXnJh7ws2zpbtwKc73_posthog=%7B%22distinct_id%22%3A%2201976a47-e54e-7c35-91f5-fc6cc
+dd453f5%22%2C%22%24sesid%22%3A%5B1749838060051%2C%2201976a47-e54a-797a-8f5c-368234f93bd8%22%2C1749834786122%5D%2C%22%24ini
+tial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22http%3A%2F%2Flocalhost%3A3000%2F%22%7D%7D

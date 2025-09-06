@@ -4,8 +4,36 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <pthread.h>
 
 #define PORT 8080
+
+struct Headers {
+
+} typedef headers_t;
+
+struct HttpResponse {
+   char method[3];
+   char path[1024];
+} typedef resp_t;
+
+
+void http_parse(char *request){
+   char *token;
+   char *res = request;
+
+   token = strtok(res, "\n");
+
+   while(token != NULL){
+      char header[2000];
+      char value[2000];
+      sscanf(token, "%s %s", header, value);
+
+      printf("HEADER: %s VALUE: %s \n", header, value);
+      token = strtok(NULL, "\n");
+   }
+}
+
 
 int main() {
       /*
@@ -20,6 +48,8 @@ int main() {
       int addrlen = sizeof(address);
       char buffer[3000];
 
+
+      pthread_t pthread_id;
       server_fd = socket(AF_INET, SOCK_STREAM, 0);
 
       address.sin_family = AF_INET;
@@ -39,18 +69,12 @@ int main() {
                   accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen);
 
             memset(buffer, 0, sizeof(buffer));
+
             // here we're reading for buffer of size 3000
+
             read(new_socket, buffer, 3000);
 
-            char method[3], app[1024];
-            sscanf(buffer, "%s %s", method, app);
-
-            if(strcmp(method, "RUN") == 0){
-                  printf("RUN: %s", app);
-                  char command[1025];
-                  snprintf(command, sizeof(command), "open %s &", app);
-                  system(command);
-            }
+            http_parse(buffer);  
 
             close(new_socket);
       }
