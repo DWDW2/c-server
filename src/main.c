@@ -19,18 +19,27 @@ struct HttpResponse {
 
 
 void http_parse(char *request){
-   char *token;
+   char *line;
    char *res = request;
 
-   token = strtok(res, "\n");
+   line = strtok(res, "\n");
 
-   while(token != NULL){
-      char header[2000];
-      char value[2000];
-      sscanf(token, "%s %s", header, value);
+   while(line != NULL){
+      char header_name[1000];
+      char header_value[2000];
+   
+      int scanned = sscanf(line, "%s %s", header_name, header_value); 
+   
+      if(scanned > 0){
+         for(int i = 0; header_name[i] != '\0'; i++){
+            if(header_name[i] == ':'){
+               header_name[i] = '\0'; 
+            }
+         }
+      } 
 
-      printf("HEADER: %s VALUE: %s \n", header, value);
-      token = strtok(NULL, "\n");
+      printf("Header name: %s, Header value: %s \n", header_name, header_value); 
+      line = strtok(NULL, "\n");
    }
 }
 
