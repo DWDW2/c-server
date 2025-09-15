@@ -9,16 +9,24 @@
 #define PORT 8080
 
 struct Headers {
-
+   char *host;
+   char *method;
+   char *cache_control;
+   char *user_agent;
 } typedef headers_t;
 
-struct HttpResponse {
-   char method[3];
-   char path[1024];
-} typedef resp_t;
-
+void init_headers(headers_t *hd){
+   if(hd){
+      hd->cache_control = NULL;
+      hd->host= NULL;
+      hd->method = NULL;
+      hd->user_agent = NULL;
+   }
+}
 
 void http_parse(char *request){
+   headers_t hd; 
+   init_headers(&hd);
    char *line;
    char *res = request;
 
@@ -38,7 +46,10 @@ void http_parse(char *request){
          }
       } 
 
-      printf("Header name: %s, Header value: %s \n", header_name, header_value); 
+      if(strcmp(header_name, "User-Agent") == 0){
+         hd.user_agent = header_value; 
+      }
+
       line = strtok(NULL, "\n");
    }
 }
